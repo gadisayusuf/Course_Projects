@@ -8,28 +8,21 @@ on:
 
 jobs:
   build:
+
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-
-    - name: Install dependencies
-      run: sudo apt-get install -y build-essential autoconf pkg-config libtool
-
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install build dependencies
+      run: sudo apt-get update && sudo apt-get install -y build-essential autotools-dev automake
     - name: Generate configure script
       run: autoreconf -i
-
-    - name: Make configure executable
-      run: chmod +x configure
-
-    - name: Configure
+    - name: Configure the project
       run: ./configure
-
-    - name: Build
+    - name: Build the project
       run: make
-
     - name: Run tests
       run: make check
-
-    - name: Distribution check
+    - name: Run distcheck (optional)
       run: make distcheck

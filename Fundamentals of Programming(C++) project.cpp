@@ -1,3 +1,5 @@
+//Stock Management System
+
 #include <iostream>
 #include <string>
 using namespace std;
